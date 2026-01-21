@@ -1,0 +1,339 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Industrial Light Theme - Professional Engineering Grade */
+    --background: 210 20% 97%;
+    --foreground: 220 20% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    --primary: 200 98% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 15% 93%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 224 76% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 15% 85%;
+    --input: 210 15% 85%;
+    --ring: 200 98% 39%;
+
+    --radius: 0.625rem;
+
+    /* Status Colors - Strong and Readable */
+    --status-normal: 142 76% 36%;
+    --status-warning: 32 95% 44%;
+    --status-critical: 0 84% 50%;
+    --status-info: 224 76% 48%;
+
+    /* Industrial Accents */
+    --industrial-cyan: 200 98% 39%;
+    --industrial-blue: 224 76% 48%;
+    --industrial-steel: 210 15% 60%;
+    --industrial-dark: 220 20% 20%;
+
+    /* Chart Colors - High Contrast */
+    --chart-1: 200 98% 39%;
+    --chart-2: 142 76% 36%;
+    --chart-3: 32 95% 44%;
+    --chart-4: 0 84% 50%;
+    --chart-5: 224 76% 48%;
+
+    /* Shadows - Soft Professional */
+    --glow-primary: 0 2px 6px rgba(0, 0, 0, 0.04);
+    --glow-success: 0 2px 6px rgba(22, 163, 74, 0.08);
+    --glow-warning: 0 2px 6px rgba(217, 119, 6, 0.08);
+    --glow-critical: 0 2px 6px rgba(220, 38, 38, 0.08);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 20% 20%;
+    --sidebar-primary: 200 98% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 15% 95%;
+    --sidebar-accent-foreground: 220 20% 20%;
+    --sidebar-border: 210 15% 85%;
+    --sidebar-ring: 200 98% 39%;
+  }
+
+  .dark {
+    /* Industrial Dark Theme */
+    --background: 220 20% 8%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 12%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 190 95% 50%;
+    --primary-foreground: 220 20% 8%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 210 20% 92%;
+
+    --muted: 220 15% 16%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 200 80% 45%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 190 95% 50%;
+
+    /* Status Colors */
+    --status-normal: 142 76% 45%;
+    --status-warning: 45 93% 55%;
+    --status-critical: 0 72% 51%;
+
+    /* Industrial Accents */
+    --industrial-cyan: 190 95% 50%;
+    --industrial-blue: 210 90% 55%;
+    --industrial-steel: 215 15% 35%;
+    --industrial-dark: 220 20% 6%;
+
+    /* Chart Colors */
+    --chart-1: 190 95% 50%;
+    --chart-2: 142 76% 45%;
+    --chart-3: 45 93% 55%;
+    --chart-4: 0 72% 51%;
+    --chart-5: 270 70% 55%;
+
+    /* Glow Effects */
+    --glow-primary: 0 0 20px hsl(190 95% 50% / 0.4);
+    --glow-success: 0 0 20px hsl(142 76% 45% / 0.4);
+    --glow-warning: 0 0 20px hsl(45 93% 55% / 0.4);
+    --glow-critical: 0 0 20px hsl(0 72% 51% / 0.4);
+
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 190 95% 50%;
+    --sidebar-primary-foreground: 220 20% 8%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 190 95% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Industrial Card Styles */
+  .industrial-card {
+    @apply bg-card border border-border rounded-lg;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .dark .industrial-card {
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(220 18% 10%) 100%);
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .industrial-card-header {
+    @apply px-4 py-2 rounded-t-lg font-semibold text-sm tracking-wide bg-primary text-primary-foreground;
+  }
+
+  .dark .industrial-card-header {
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+
+  }
+
+  /* KPI Card */
+  .kpi-card {
+    @apply industrial-card p-4 min-w-[140px];
+  }
+
+  .kpi-value {
+    @apply text-2xl font-bold font-mono tracking-tight;
+  }
+
+  .kpi-label {
+    @apply text-xs text-muted-foreground uppercase tracking-wider mt-1;
+  }
+
+  /* Status Indicators */
+  .status-normal {
+    @apply text-status-normal;
+  }
+
+  .dark .status-normal {
+    text-shadow: var(--glow-success);
+  }
+
+  .status-warning {
+    @apply text-status-warning;
+  }
+
+  .dark .status-warning {
+    text-shadow: var(--glow-warning);
+  }
+
+  .status-critical {
+    @apply text-status-critical;
+  }
+
+  .dark .status-critical {
+    text-shadow: var(--glow-critical);
+  }
+
+  /* Tab Styling */
+  .tab-button {
+    @apply px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 border-transparent;
+  }
+
+  .tab-button:hover {
+    @apply bg-secondary/50;
+  }
+
+  .tab-button.active {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+
+  .dark .tab-button.active {
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+
+  }
+
+  /* Gauge & Progress */
+  .gauge-container {
+    @apply relative flex items-center justify-center;
+  }
+
+  .progress-bar {
+    @apply h-3 rounded-full overflow-hidden;
+    background: hsl(var(--muted));
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+
+  /* Animation Utilities */
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .animate-value-update {
+    animation: valueUpdate 0.3s ease-out;
+  }
+}
+
+@layer utilities {
+  .text-status-normal {
+    color: hsl(var(--status-normal));
+  }
+
+  .text-status-warning {
+    color: hsl(var(--status-warning));
+  }
+
+  .text-status-critical {
+    color: hsl(var(--status-critical));
+  }
+
+  .bg-status-normal {
+    background-color: hsl(var(--status-normal));
+  }
+
+  .bg-status-warning {
+    background-color: hsl(var(--status-warning));
+  }
+
+  .bg-status-critical {
+    background-color: hsl(var(--status-critical));
+  }
+
+  .bg-industrial-cyan {
+    background-color: hsl(var(--industrial-cyan));
+  }
+
+  .text-industrial-cyan {
+    color: hsl(var(--industrial-cyan));
+  }
+
+  .border-industrial-steel {
+    border-color: hsl(var(--industrial-steel));
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes valueUpdate {
+  0% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--industrial-steel));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+/* Canvas fix for Three.js */
+canvas {
+  display: block;
+}
