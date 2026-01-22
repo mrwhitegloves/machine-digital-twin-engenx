@@ -28,6 +28,7 @@ import {
   Zap,
   Power,
 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const Dashboard = () => {
   // State
@@ -41,6 +42,10 @@ const Dashboard = () => {
   const [activeAlerts, setActiveAlerts] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [maintenanceLogOpen, setMaintenanceLogOpen] = useState(false);
+
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  console.log("theme: ",theme)
+  console.log("resolvedTheme: ",resolvedTheme)
 
   // Calculate alerts based on limits
   const calculateAlerts = useCallback((data, limits) => {
@@ -161,7 +166,13 @@ const Dashboard = () => {
               <Settings className="w-5 h-5" />
             </button>
 
-            <img src="/logo.png" className="ml-4 w-36 h-8" alt="logo" />
+            {
+              theme === 'light' ? (
+              <img src="/blackLogo.png" className="ml-4 w-36 h-8" alt="logo" />
+            ) : (
+            <img src="/logo.png" className="ml-4 w-36 h-6" alt="logo" />
+          )
+            }
           </div>
         </div>
       </header>

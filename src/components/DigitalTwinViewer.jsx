@@ -55,20 +55,23 @@ const MotorModel = ({
   const { scene } = useGLTF('/models/3Dmotor2.glb');
   const [latestTemp, setLatestTemp] = useState(30);
   const modelRef = useRef(); // ref to the group for rotation
+  const MODEL_OFFSET_Y = 1.5;
 
   // Center & scale model
   useEffect(() => {
     const box = new THREE.Box3().setFromObject(scene);
+    console.log("box: ",box)
     const center = box.getCenter(new THREE.Vector3());
     scene.position.sub(center);
-    scene.scale.setScalar(4); // adjust scale as needed
+    scene.scale.setScalar(5); // adjust scale as needed
     scene.rotation.set(0, 0, 0);
   }, [scene]);
 
   // Temperature color update (unchanged)
   useEffect(() => {
     const getTemperatureColor = (temp) => {
-      if (temp <= 60) return new THREE.Color('#00ff4d');
+      console.log("temp: ",temp)
+      if (temp <= 60) return new THREE.Color('#092913');
       if (temp <= 80) return new THREE.Color('#ffaa00');
       return new THREE.Color('#ff1a1a');
     };
@@ -85,6 +88,7 @@ const MotorModel = ({
   // Listen for temperature updates
   useEffect(() => {
     window.updateMotorTemperature = (data) => {
+      console.log("data: ",data)
       setLatestTemp(data?.motorTemperature || 30);
     };
     return () => (window.updateMotorTemperature = null);
@@ -125,7 +129,7 @@ const MotorModel = ({
   };
 
   return (
-    <group ref={modelRef}>
+    <group ref={modelRef} >
       <primitive
         object={scene}
         position={[0, 0, 0]}

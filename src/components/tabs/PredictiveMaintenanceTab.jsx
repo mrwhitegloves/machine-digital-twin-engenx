@@ -124,31 +124,31 @@ export const PredictiveMaintenanceTab = ({
           label="Motor Temperature" 
           value={currentData.motorTemperature} 
           unit="°C" 
-          position="top-20 left-4" 
+          position="top-4 left-4" 
         />
         <DataOverlay 
           label="Oil Temperature" 
           value={currentData.oilTemperature} 
           unit="°C" 
-          position="top-20 right-4" 
+          position="bottom-5 left-4" 
         />
         <DataOverlay 
           label="Torque Sensor" 
           value={currentData.torque} 
           unit="Nm" 
-          position="top-1/3 left-1/3" 
-        />
-        <DataOverlay 
-          label="RPM(ethernet)" 
-          value={currentData.rpmEthernet} 
-          unit="" 
-          position="top-1/3 right-4" 
+          position="top-[50%] left-4" 
         />
         <DataOverlay 
           label="RPM(wifi)" 
           value={currentData.rpmWifi} 
           unit="" 
-          position="top-[40%] right-4" 
+          position="top-[50%] right-4" 
+        />
+        <DataOverlay 
+          label="RPM(ethernet)" 
+          value={currentData.rpmEthernet} 
+          unit="" 
+          position="bottom-5 right-4" 
         />
       </div>
 
