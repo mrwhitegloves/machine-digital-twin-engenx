@@ -42,6 +42,8 @@ const Dashboard = () => {
   const [activeAlerts, setActiveAlerts] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [maintenanceLogOpen, setMaintenanceLogOpen] = useState(false);
+  const [motorRunning, setMotorRunning] = useState(false);
+  const [rotationDirection, setRotationDirection] = useState(1); // 1 = forward, -1 = reverse
 
   const { theme, resolvedTheme, setTheme } = useTheme();
   console.log("theme: ",theme)
@@ -148,6 +150,32 @@ const Dashboard = () => {
 
           {/* Right Controls */}
           <div className="flex items-center gap-2">
+            <div className=" bottom-6 right-6 z-50 flex gap-3 bg-background/80 backdrop-blur-md p-1 rounded-lg border shadow-lg">
+  <button
+    onClick={() => setMotorRunning((prev) => !prev)}
+    className={cn(
+      "px-3 py-1 rounded-md font-medium transition-all",
+      motorRunning
+        ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+        : "bg-primary text-primary-foreground hover:bg-primary/90"
+    )}
+  >
+    {motorRunning ? "STOP" : "START"}
+  </button>
+
+  <button
+    onClick={() => setRotationDirection((prev) => (prev === 1 ? -1 : 1))}
+    className={cn(
+      "px-3 py-1 rounded-md font-medium transition-all",
+      rotationDirection === 1
+        ? "bg-green-600 hover:bg-green-700 text-white"
+        : "bg-amber-600 hover:bg-amber-700 text-white"
+    )}
+  >
+    {rotationDirection === 1 ? "FORWARD" : "REVERSE"}
+  </button>
+</div>
+
             <ThemeToggle />
 
             <button
@@ -243,6 +271,9 @@ const Dashboard = () => {
           <DigitalTwinViewer
             componentStatuses={componentStatuses}
             onComponentClick={handleComponentClick}
+            currentData={currentData}
+            motorRunning={motorRunning}
+            rotationDirection={rotationDirection}
           />
         </div>
 

@@ -11,7 +11,7 @@ const ComponentOverlay = ({ status, position }) => {
     warning: 'border-status-warning bg-status-warning/10',
     critical: 'border-status-critical bg-status-critical/10',
   };
-
+  
   return (
     <Html position={position} center>
       <div
@@ -51,8 +51,11 @@ const MotorModel = ({
   onLeave,
   hoveredComponent,
   setDragging,
+  currentData,
+  motorRunning = false,          // NEW
+  rotationDirection = 1,         // NEW
 }) => {
-  const { scene } = useGLTF('/models/3Dmotor2.glb');
+  const { scene } = useGLTF('/models/3Dmotor.glb');
   const [latestTemp, setLatestTemp] = useState(30);
   const modelRef = useRef(); // ref to the group for rotation
   const MODEL_OFFSET_Y = 1.5;
@@ -71,8 +74,9 @@ const MotorModel = ({
   useEffect(() => {
     const getTemperatureColor = (temp) => {
       console.log("temp: ",temp)
-      if (temp <= 60) return new THREE.Color('#092913');
-      if (temp <= 80) return new THREE.Color('#ffaa00');
+      console.log("currentData in twin: ",currentData )
+      if (currentData?.motorTemperature <= 60) return new THREE.Color('#1cca5b');
+      if (currentData?.motorTemperature <= 80) return new THREE.Color('#c68b15');
       return new THREE.Color('#ff1a1a');
     };
 
@@ -83,12 +87,12 @@ const MotorModel = ({
         child.material.needsUpdate = true;
       }
     });
-  }, [latestTemp, scene]);
+  }, [latestTemp, scene, currentData]);
 
   // Listen for temperature updates
   useEffect(() => {
     window.updateMotorTemperature = (data) => {
-      console.log("data: ",data)
+      console.log("datas: ",data)
       setLatestTemp(data?.motorTemperature || 30);
     };
     return () => (window.updateMotorTemperature = null);
@@ -96,10 +100,10 @@ const MotorModel = ({
 
   // Continuous slow rotation (only when not dragging)
   useFrame((state, delta) => {
-    if (!modelRef.current || setDragging?.current) return; // don't rotate while user is dragging
+    if (!modelRef.current || setDragging?.current || !motorRunning) return; // don't rotate while user is dragging
 
     // Rotate slowly around Y-axis (vertical) — adjust speed as needed
-    modelRef.current.rotation.y += delta * 0.3; // 0.3 = ~17° per second — feels smooth
+    modelRef.current.rotation.y += delta * 0.3 * rotationDirection ; // 0.3 = ~17° per second — feels smooth
   });
 
   const getStatusByName = (name) =>
@@ -173,9 +177,9 @@ const MotorModel = ({
   );
 };
 
-useGLTF.preload('/models/3Dmotor2.glb');
+useGLTF.preload('/models/3Dmotor.glb');
 
-const Scene = ({ componentStatuses, onComponentClick, setDragging }) => {
+const Scene = ({ componentStatuses, onComponentClick, setDragging, currentData, motorRunning, rotationDirection }) => {
   const [hoveredComponent, setHoveredComponent] = useState(null);
 
   return (
@@ -193,12 +197,15 @@ const Scene = ({ componentStatuses, onComponentClick, setDragging }) => {
         onLeave={() => setHoveredComponent(null)}
         hoveredComponent={hoveredComponent}
         setDragging={setDragging}
+        currentData={currentData}
+        motorRunning={motorRunning}          // NEW
+        rotationDirection={rotationDirection} // NEW
       />
     </>
   );
 };
 
-export const DigitalTwinViewer = ({ componentStatuses, onComponentClick }) => {
+export const DigitalTwinViewer = ({ componentStatuses, onComponentClick, currentData, motorRunning = false, rotationDirection = 1 }) => {
   const [dragging, setDragging] = useState(false);
 
   return (
@@ -216,6 +223,9 @@ export const DigitalTwinViewer = ({ componentStatuses, onComponentClick }) => {
             componentStatuses={componentStatuses}
             onComponentClick={onComponentClick}
             setDragging={setDragging}
+            currentData={currentData}
+            motorRunning={motorRunning}          // NEW
+            rotationDirection={rotationDirection} // NEW
           />
         </Suspense>
 
