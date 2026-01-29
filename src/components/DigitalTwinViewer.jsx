@@ -238,13 +238,20 @@ export const DigitalTwinViewer = ({
   return (
     <div
       className={cn(
-        'w-full h-full min-h-[400px] rounded-lg overflow-hidden',
+        'w-full h-full min-h-[400px] rounded-lg overflow-hidden relative',
         'bg-gradient-to-b from-gray-900 to-black dark:from-gray-900 dark:to-black',
         'light:bg-[#F8FAFC]'
       )}
-      style={{ background: 'var(--twin-bg, linear-gradient(to bottom, #111827, #000))' }}
+      style={{ 
+        background: 'var(--twin-bg, linear-gradient(to bottom, #111827, #000))',
+        touchAction: 'none' 
+      }}
     >
-      <Canvas shadows>
+      <Canvas 
+        shadows 
+        style={{ touchAction: 'none' }}
+        onPointerMissed={() => setSelectedPart(null)}
+      >
         <PerspectiveCamera makeDefault fov={60} position={[5, 3, 5]} near={0.1} far={1000} />
 
         <Suspense fallback={null}>
