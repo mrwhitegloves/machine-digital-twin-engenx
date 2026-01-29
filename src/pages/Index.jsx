@@ -266,8 +266,8 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 relative">
-        {/* 3D Digital Twin Viewer */}
-        <div className="absolute inset-0">
+        {/* 3D Digital Twin Viewer - z-10 ensures it's clickable */}
+        <div className="absolute inset-0 z-10">
           <DigitalTwinViewer
             componentStatuses={componentStatuses}
             onComponentClick={handleComponentClick}
@@ -277,8 +277,8 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Tab Content */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* Tab Content - z-20 sits above but pointer-events-none allows clicks through */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
           {activeTab === 'condition' && (
             <ConditionMonitoringTab
               timeSeriesData={timeSeriesData}
