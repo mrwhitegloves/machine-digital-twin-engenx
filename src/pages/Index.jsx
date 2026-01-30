@@ -269,7 +269,7 @@ const Dashboard = () => {
           />
         </div> */}
         <div
-  className="absolute top-32 sm:top-36 md:top-40 left-4 sm:left-24 md:left-48 lg:left-[19.2rem] right-4 sm:right-24 md:right-auto w-auto md:w-[60vw] lg:w-[56vw] h-[calc(100vh-180px)] sm:h-[calc(100vh-200px)] md:h-[calc(100vh-220px)] z-50"
+  className="absolute top-32 sm:top-36 md:top-40 left-4 sm:left-24 md:left-48 lg:left-[19.2rem] right-4 sm:right-24 md:right-auto w-auto md:w-[60vw] lg:w-[48vw] h-[calc(100vh-180px)] sm:h-[calc(100vh-200px)] md:h-[calc(100vh-220px)] z-50"
 >
   <DigitalTwinViewer2
     componentData={currentData}

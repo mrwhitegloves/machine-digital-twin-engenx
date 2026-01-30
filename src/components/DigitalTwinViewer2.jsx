@@ -27,7 +27,7 @@ if (error) {
     const box = new THREE.Box3().setFromObject(stableScene);
     const center = box.getCenter(new THREE.Vector3());
     stableScene.position.sub(center);
-    stableScene.scale.setScalar(25); // adjust as needed
+    stableScene.scale.setScalar(18); // adjust as needed
     stableScene.rotation.set(0, 0, 0);
   }, [stableScene]);
 
