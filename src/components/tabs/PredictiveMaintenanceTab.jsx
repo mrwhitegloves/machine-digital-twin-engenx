@@ -155,18 +155,18 @@ export const PredictiveMaintenanceTab = ({
       {/* Right Panel */}
       <div className="w-[300px] p-3 space-y-3 overflow-y-auto">
         {/* Failure Probability Gauge */}
-        {/* <div className="industrial-card">
+        <div className="industrial-card">
           <div className="industrial-card-header">Failure Probability (30 days)</div>
           <div className="p-4">
             <GaugeChart
               value={failureProbability}
-              maxValue={50}
+              maxValue={100}
               title=""
               unit="%"
               size="md"
             />
           </div>
-        </div> */}
+        </div>
 
         {/* RUL Progress Bars */}
         <div className="industrial-card">

@@ -25,23 +25,23 @@ export const GaugeChart = ({
   const { stroke, text } = getColor();
 
   const polarToCartesian = (cx, cy, r, angle) => {
-  const rad = (angle * Math.PI) / 180;
-  return {
-    x: cx + r * Math.cos(rad),
-    y: cy + r * Math.sin(rad),
+    const rad = (angle * Math.PI) / 180;
+    return {
+      x: cx + r * Math.cos(rad),
+      y: cy + r * Math.sin(rad),
+    };
   };
-};
 
-const describeArc = (cx, cy, r, startAngle, endAngle) => {
-  const start = polarToCartesian(cx, cy, r, endAngle);
-  const end = polarToCartesian(cx, cy, r, startAngle);
-  const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+  const describeArc = (cx, cy, r, startAngle, endAngle) => {
+    const start = polarToCartesian(cx, cy, r, startAngle);
+    const end = polarToCartesian(cx, cy, r, endAngle);
+    const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
-  return `
-    M ${start.x} ${start.y}
-    A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y}
-  `;
-};
+    return `
+      M ${start.x} ${start.y}
+      A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}
+    `;
+  };
   
   const sizes = {
     sm: { width: 100, radius: 35, strokeWidth: 8 },
@@ -53,14 +53,13 @@ const describeArc = (cx, cy, r, startAngle, endAngle) => {
   const circumference = Math.PI * radius;
   const arcLength = (ARC_ANGLE / 360) * (2 * Math.PI * radius);
 
-
   const arcPath = describeArc(
-  width / 2,
-  width / 2,
-  radius,
-  START_ANGLE,
-  START_ANGLE + ARC_ANGLE
-);
+    width / 2,
+    width / 2,
+    radius,
+    START_ANGLE,
+    START_ANGLE + ARC_ANGLE
+  );
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
@@ -69,24 +68,26 @@ const describeArc = (cx, cy, r, startAngle, endAngle) => {
         <svg width={width} height={width / 2 + 10} className="overflow-visible">
           {/* Background arc */}
           <path
-  d={arcPath}
-  fill="none"
-  stroke="hsl(220, 15%, 20%)"
-  strokeWidth={strokeWidth}
-  strokeLinecap="round"
-/>
+            d={arcPath}
+            fill="none"
+            stroke="hsl(220, 15%, 20%)"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+          />
 
-<path
-  d={arcPath}
-  fill="none"
-  stroke={stroke}
-  strokeWidth={strokeWidth}
-  strokeLinecap="round"
-  strokeDasharray={`${arcLength}`}
-  strokeDashoffset={arcLength * (1 - percentage / 100)}
-  className="transition-all duration-500"
-/>
-          {/* Needle */}
+          {/* Colored arc - now counter-clockwise */}
+          <path
+            d={arcPath}
+            fill="none"
+            stroke={stroke}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={arcLength}
+            strokeDashoffset={arcLength - (arcLength * (percentage / 100))}
+            className="transition-all duration-500"
+          />
+          
+          {/* Needle - still clockwise */}
           <g transform={`translate(${width / 2}, ${width / 2})`}>
             <line
               x1="0"
