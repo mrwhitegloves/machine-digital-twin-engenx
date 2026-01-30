@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { KPICard } from '@/components/KPICard.jsx';
-import { DigitalTwinViewer } from '@/components/DigitalTwinViewer';
+// import { DigitalTwinViewer } from '@/components/DigitalTwinViewer';
+import { DigitalTwinViewer2 } from '@/components/DigitalTwinViewer2';
 import { ConditionMonitoringTab } from '@/components/tabs/ConditionMonitoringTab';
 import { PredictiveMaintenanceTab } from '@/components/tabs/PredictiveMaintenanceTab';
 import { QualityControlTab } from '@/components/tabs/QualityControlTab';
@@ -46,8 +47,8 @@ const Dashboard = () => {
   const [rotationDirection, setRotationDirection] = useState(1); // 1 = forward, -1 = reverse
 
   const { theme, resolvedTheme, setTheme } = useTheme();
-  console.log("theme: ",theme)
-  console.log("resolvedTheme: ",resolvedTheme)
+  // console.log("theme: ",theme)
+  // console.log("resolvedTheme: ",resolvedTheme)
 
   // Calculate alerts based on limits
   const calculateAlerts = useCallback((data, limits) => {
@@ -128,7 +129,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
       {/* Top Navigation Bar */}
       <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="h-full flex items-center justify-between px-4">
@@ -150,7 +151,7 @@ const Dashboard = () => {
 
           {/* Right Controls */}
           <div className="flex items-center gap-2">
-            <div className=" bottom-6 right-6 z-50 flex gap-3 bg-background/80 backdrop-blur-md p-1 rounded-lg border shadow-lg">
+            {/* <div className=" bottom-6 right-6 z-50 flex gap-3 bg-background/80 backdrop-blur-md p-1 rounded-lg border shadow-lg">
   <button
     onClick={() => setMotorRunning((prev) => !prev)}
     className={cn(
@@ -174,7 +175,7 @@ const Dashboard = () => {
   >
     {rotationDirection === 1 ? "FORWARD" : "REVERSE"}
   </button>
-</div>
+</div> */}
 
             <ThemeToggle />
 
@@ -263,11 +264,22 @@ const Dashboard = () => {
           />
         </div>
       </div>
+        {/* <div className="absolute top-40 left-[19.2rem] w-[60vw] h-[calc(100vh-220px)] z-50">
+          <DigitalTwinViewer2
+            componentData={currentData}
+            onComponentClick={handleComponentClick}
+          />
+        </div> */}
+        <div
+  className="absolute top-32 sm:top-36 md:top-40 left-4 sm:left-24 md:left-48 lg:left-[19.2rem] right-4 sm:right-24 md:right-auto w-auto md:w-[60vw] lg:w-[58vw] h-[calc(100vh-180px)] sm:h-[calc(100vh-200px)] md:h-[calc(100vh-220px)] z-50"
+>
+  <DigitalTwinViewer2
+    componentData={currentData}
+    onComponentClick={handleComponentClick}
+  />
+</div>
 
-      {/* Main Content */}
-      <main className="flex-1 relative">
-        {/* 3D Digital Twin Viewer - z-10 ensures it's clickable */}
-        <div className="absolute inset-0 z-10">
+        {/* <div className="absolute top-40 left-80 w-[50vw] h-[calc(100vh-220px)] z-50">
           <DigitalTwinViewer
             componentStatuses={componentStatuses}
             onComponentClick={handleComponentClick}
@@ -275,10 +287,14 @@ const Dashboard = () => {
             motorRunning={motorRunning}
             rotationDirection={rotationDirection}
           />
-        </div>
+        </div> */}
 
-        {/* Tab Content - z-20 sits above but pointer-events-none allows clicks through */}
-        <div className="absolute inset-0 z-20 pointer-events-none">
+      {/* Main Content */}
+      <main className="flex-1 relative">
+        {/* 3D Digital Twin Viewer */}
+
+        {/* Tab Content */}
+        <div className="absolute inset-0 pointer-events-none">
           {activeTab === 'condition' && (
             <ConditionMonitoringTab
               timeSeriesData={timeSeriesData}

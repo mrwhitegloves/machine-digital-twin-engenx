@@ -114,7 +114,7 @@ export const PredictiveMaintenanceTab = ({
 
       {/* Center - Data Overlays (positioned over 3D model) */}
       <div className="flex-1 relative pointer-events-none">
-        <DataOverlay 
+        {/* <DataOverlay 
           label="Vibration X,Y,Z" 
           value={currentData.vibration.x} 
           unit={`${currentData.vibration.y.toFixed(1)}, ${currentData.vibration.z.toFixed(1)}`} 
@@ -149,13 +149,13 @@ export const PredictiveMaintenanceTab = ({
           value={currentData.rpmEthernet} 
           unit="" 
           position="bottom-5 right-4" 
-        />
+        /> */}
       </div>
 
       {/* Right Panel */}
       <div className="w-[300px] p-3 space-y-3 overflow-y-auto">
         {/* Failure Probability Gauge */}
-        <div className="industrial-card">
+        {/* <div className="industrial-card">
           <div className="industrial-card-header">Failure Probability (30 days)</div>
           <div className="p-4">
             <GaugeChart
@@ -166,7 +166,7 @@ export const PredictiveMaintenanceTab = ({
               size="md"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* RUL Progress Bars */}
         <div className="industrial-card">

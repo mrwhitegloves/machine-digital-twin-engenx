@@ -23,8 +23,8 @@ export const ConditionMonitoringTab = ({
       vibX: d.vibration.x,
       vibY: d.vibration.y,
       vibZ: d.vibration.z,
-      rpmEthernet: d.rpmEthernet,
-      rpmWifi: d.rpmWifi,
+      rpmMotor: d.rpmEthernet,
+      rpmGearbox: d.rpmWifi,
       latencyEthernet: d.latencyEthernet,
       latencyWifi: d.latencyWifi,
     }));
@@ -184,7 +184,7 @@ export const ConditionMonitoringTab = ({
         <IndustrialLineChart
           title="RPM Comparison"
           data={chartData}
-          dataKey={['rpmEthernet', 'rpmWifi']}
+          dataKey={['rpmMotor', 'rpmGearbox']}
           height={120}
           colors={['hsl(190, 95%, 50%)', 'hsl(142, 76%, 45%)']}
         />
@@ -193,13 +193,13 @@ export const ConditionMonitoringTab = ({
           <div className="industrial-card-header">Speed Readings</div>
           <div className="p-3">
             <ValueDisplay
-              label="RPM (Ethernet)"
+              label="RPM (Motor)"
               value={currentData.rpmEthernet}
               unit="RPM"
               status={getStatus(currentData.rpmEthernet, 'rpmEthernet')}
             />
             <ValueDisplay
-              label="RPM (WiFi)"
+              label="RPM (Gearbox)"
               value={currentData.rpmWifi}
               unit="RPM"
               status={getStatus(currentData.rpmWifi, 'rpmWifi')}

@@ -76,7 +76,7 @@ export const WhatIfAnalysisTab = ({ currentData }) => {
   return (
     <div className="absolute inset-0 flex pointer-events-auto">
       {/* Left Panel - Controls */}
-      <div className="w-[320px] p-4 space-y-4 overflow-y-auto">
+      <div className="w-[300px] p-4 space-y-4 overflow-y-auto">
         <div className="industrial-card">
           <div className="industrial-card-header">Simulation Controls</div>
           <div className="p-4 space-y-6">
@@ -120,13 +120,13 @@ export const WhatIfAnalysisTab = ({ currentData }) => {
             </div>
 
             {/* Poor Lubrication Toggle */}
-            <div className="flex items-center justify-between py-2">
+            {/* <div className="flex items-center justify-between py-2">
               <Label className="text-sm text-muted-foreground">Poor Lubrication</Label>
               <Switch
                 checked={poorLubrication}
                 onCheckedChange={setPoorLubrication}
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -186,7 +186,7 @@ export const WhatIfAnalysisTab = ({ currentData }) => {
       <div className="flex-1 relative" />
 
       {/* Right Panel - Predictions */}
-      <div className="w-[320px] p-4 space-y-3 overflow-y-auto">
+      <div className="w-[300px] p-4 space-y-3 overflow-y-auto">
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
           Simulated Predictions
         </h3>
