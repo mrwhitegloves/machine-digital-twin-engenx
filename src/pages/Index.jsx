@@ -47,8 +47,6 @@ const Dashboard = () => {
   const [rotationDirection, setRotationDirection] = useState(1); // 1 = forward, -1 = reverse
 
   const { theme, resolvedTheme, setTheme } = useTheme();
-  // console.log("theme: ",theme)
-  // console.log("resolvedTheme: ",resolvedTheme)
 
   // Calculate alerts based on limits
   const calculateAlerts = useCallback((data, limits) => {
