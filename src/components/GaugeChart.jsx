@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import { cn } from "@/lib/utils";
 
+const ARC_ANGLE = 140; // degrees (try 120–160)
+const START_ANGLE = -90 - ARC_ANGLE / 2;
+
 export const GaugeChart = ({ 
   value, 
   maxValue = 100, 
@@ -20,6 +23,25 @@ export const GaugeChart = ({
   };
 
   const { stroke, text } = getColor();
+
+  const polarToCartesian = (cx, cy, r, angle) => {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    x: cx + r * Math.cos(rad),
+    y: cy + r * Math.sin(rad),
+  };
+};
+
+const describeArc = (cx, cy, r, startAngle, endAngle) => {
+  const start = polarToCartesian(cx, cy, r, endAngle);
+  const end = polarToCartesian(cx, cy, r, startAngle);
+  const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+
+  return `
+    M ${start.x} ${start.y}
+    A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x} ${end.y}
+  `;
+};
   
   const sizes = {
     sm: { width: 100, radius: 35, strokeWidth: 8 },
@@ -29,6 +51,16 @@ export const GaugeChart = ({
   
   const { width, radius, strokeWidth } = sizes[size];
   const circumference = Math.PI * radius;
+  const arcLength = (ARC_ANGLE / 360) * (2 * Math.PI * radius);
+
+
+  const arcPath = describeArc(
+  width / 2,
+  width / 2,
+  radius,
+  START_ANGLE,
+  START_ANGLE + ARC_ANGLE
+);
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
@@ -37,23 +69,23 @@ export const GaugeChart = ({
         <svg width={width} height={width / 2 + 10} className="overflow-visible">
           {/* Background arc */}
           <path
-            d={`M ${strokeWidth} ${width / 2} A ${radius} ${radius} 0 0 1 ${width - strokeWidth} ${width / 2}`}
-            fill="none"
-            stroke="hsl(220, 15%, 20%)"
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-          />
-          {/* Value arc */}
-          <path
-            d={`M ${strokeWidth} ${width / 2} A ${radius} ${radius} 0 0 1 ${width - strokeWidth} ${width / 2}`}
-            fill="none"
-            stroke={stroke}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeDasharray={circumference}
-            strokeDashoffset={circumference - (percentage / 100) * circumference}
-            className="transition-all duration-500"
-          />
+  d={arcPath}
+  fill="none"
+  stroke="hsl(220, 15%, 20%)"
+  strokeWidth={strokeWidth}
+  strokeLinecap="round"
+/>
+
+<path
+  d={arcPath}
+  fill="none"
+  stroke={stroke}
+  strokeWidth={strokeWidth}
+  strokeLinecap="round"
+  strokeDasharray={`${arcLength}`}
+  strokeDashoffset={arcLength * (1 - percentage / 100)}
+  className="transition-all duration-500"
+/>
           {/* Needle */}
           <g transform={`translate(${width / 2}, ${width / 2})`}>
             <line

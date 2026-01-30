@@ -46,7 +46,7 @@ const Dashboard = () => {
   const [motorRunning, setMotorRunning] = useState(false);
   const [rotationDirection, setRotationDirection] = useState(1); // 1 = forward, -1 = reverse
 
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   // Calculate alerts based on limits
   const calculateAlerts = useCallback((data, limits) => {

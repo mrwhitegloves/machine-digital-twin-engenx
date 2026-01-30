@@ -98,32 +98,6 @@ export const ConditionMonitoringTab = ({
         </div>
 
         <IndustrialLineChart
-          title="Latency"
-          data={chartData}
-          dataKey={['latencyEthernet', 'latencyWifi']}
-          height={100}
-          colors={['hsl(190, 95%, 50%)', 'hsl(0, 72%, 51%)']}
-        />
-
-        <div className="industrial-card">
-          <div className="industrial-card-header">Network Status</div>
-          <div className="p-3">
-            <ValueDisplay
-              label="WiFi Latency"
-              value={currentData.latencyWifi}
-              unit="ms"
-              status={currentData.latencyWifi > 30 ? 'warning' : 'normal'}
-            />
-            <ValueDisplay
-              label="Ethernet Latency"
-              value={currentData.latencyEthernet}
-              unit="ms"
-              status={currentData.latencyEthernet > 10 ? 'warning' : 'normal'}
-            />
-          </div>
-        </div>
-
-        <IndustrialLineChart
           title="Gear Box Vibration"
           data={chartData}
           dataKey={['vibX', 'vibY', 'vibZ']}
@@ -152,6 +126,32 @@ export const ConditionMonitoringTab = ({
               value={currentData.vibration.z}
               unit="mm/s"
               status={getStatus(currentData.vibration.z, 'vibrationZ')}
+            />
+          </div>
+        </div>
+
+        <IndustrialLineChart
+          title="Latency"
+          data={chartData}
+          dataKey={['latencyEthernet', 'latencyWifi']}
+          height={100}
+          colors={['hsl(190, 95%, 50%)', 'hsl(0, 72%, 51%)']}
+        />
+
+        <div className="industrial-card">
+          <div className="industrial-card-header">Network Status</div>
+          <div className="p-3">
+            <ValueDisplay
+              label="WiFi Latency"
+              value={currentData.latencyWifi}
+              unit="ms"
+              status={currentData.latencyWifi > 30 ? 'warning' : 'normal'}
+            />
+            <ValueDisplay
+              label="Ethernet Latency"
+              value={currentData.latencyEthernet}
+              unit="ms"
+              status={currentData.latencyEthernet > 10 ? 'warning' : 'normal'}
             />
           </div>
         </div>

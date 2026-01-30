@@ -3,6 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Center, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 function Model({ componentData, onPartHover, onPartClick, selectedPart }) {
 //   const { scene } = useGLTF('/models/3Dmotor3.glb');
@@ -218,6 +219,7 @@ useGLTF.preload('/models/3Dmotor3.glb');
 export function DigitalTwinViewer2({ componentData, onComponentClick }) {
   const [hoveredPart, setHoveredPart] = useState(null);
   const [selectedPart, setSelectedPart] = useState(null);
+  const { theme } = useTheme();
 
   const handlePartClick = (partName) => {
     setSelectedPart(selectedPart === partName ? null : partName);
@@ -225,7 +227,7 @@ export function DigitalTwinViewer2({ componentData, onComponentClick }) {
   };
 
   return (
-    <div className="relative w-full h-full min-h-[600px] bg-gradient-to-br from-gray-950 to-black rounded-xl overflow-hidden border border-cyan-900/30 shadow-2xl">
+    <div className={`relative w-full h-full min-h-[600px] ${theme === 'light' ? 'bg-gradient-to-br from-gray-100 to-white' : 'bg-gradient-to-br from-gray-950 to-black'} rounded-xl overflow-hidden border border-cyan-900/30 shadow-2xl`}>
       {/* Header */}
       <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between px-6 py-3 bg-black/60 backdrop-blur-md rounded-lg border border-cyan-800/50">
         <h3 className="text-lg font-bold text-cyan-400 tracking-wider">
@@ -267,11 +269,11 @@ export function DigitalTwinViewer2({ componentData, onComponentClick }) {
       </Suspense>
 
       {/* Selected part hint */}
-      {selectedPart && (
+      {/* {selectedPart && (
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md px-6 py-3 rounded-full border border-cyan-800/50 text-cyan-300 text-sm font-medium shadow-lg">
           Selected: <span className="font-bold text-white">{selectedPart}</span> — Click again to deselect
         </div>
-      )}
+      )} */}
     </div>
   );
 }

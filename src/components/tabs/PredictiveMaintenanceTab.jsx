@@ -160,7 +160,7 @@ export const PredictiveMaintenanceTab = ({
           <div className="p-4">
             <GaugeChart
               value={failureProbability}
-              maxValue={100}
+              maxValue={50}
               title=""
               unit="%"
               size="md"
